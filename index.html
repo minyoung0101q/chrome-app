@@ -7,12 +7,15 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-    <div id="login-form">
-      <!-- form을 다시는 사용하면 안된다는 것만 알면 된다, id를 쓸 때는 -->
-      <input class="hi" type="text" placeholder="What is your name?" />
-      <button>Log In</button>
-    </div>
-
+    <form class="login-form">
+      <input
+        required
+        maxlength="15"
+        type="text"
+        placeholder="username을 입력해주세요"
+      />
+      <input type="submit" value="Log In" />
+    </form>
     <script src="app.js"></script>
   </body>
 </html>
