@@ -1,36 +1,31 @@
+//form과 h1을 숨겨뒀다가 localStorage에 존재한다면 h1을 보이게 하고
+//localStorage에 없다면 form을 보이게 한다.
 const loginForm = document.querySelector("#login-form");
 const loginInput = document.querySelector("#login-form input");
 const greeting = document.querySelector("#greeting");
 
-console.log(loginForm);
-console.log(loginInput);
-console.log(greeting);
-
 const HIDDEN_CLASSNAME = "hidden";
 const USERNAME_KEY = "username";
 
-function handleLoginSubmit(event) {
+function paintGreeting(username) {
+  greeting.classList.remove(HIDDEN_CLASSNAME);
+  greeting.innerText = `Hello ${username}`;
+}
+
+// submit되면 화면에 innerText 활용해 표시가 된다고 가정한다.
+function handleSubmit(event) {
   event.preventDefault();
+  loginForm.classList.add(HIDDEN_CLASSNAME); //코드 추가
   const username = loginInput.value;
   localStorage.setItem(USERNAME_KEY, username);
-  paintGreetings(username);
-}
-// username을 인자로 받는 함수
-function paintGreetings(username) {
-  greeting.innerText = `Hello ${username}`;
-  greeting.classList.remove(HIDDEN_CLASSNAME);
+  paintGreeting(username);
 }
 
 const savedUsername = localStorage.getItem(USERNAME_KEY);
-
-/* localStorage에 유저정보가 없을 때
-우리는 form의 submit을 기다린다.
-form이 submit 되면 우리는 input으로부터 유저정보를 받고, 
- */
+console.log(savedUsername); //해당 키의 value 출력
 if (savedUsername === null) {
-  loginForm.classList.remove(HIDDEN_CLASSNAME);
-  loginForm.addEventListener("submit", handleLoginSubmit);
-  // localStorage에 유저정보가 있을 때
+  loginForm.classList.remove(HIDDEN_CLASSNAME); //Form이 나타남
+  loginForm.addEventListener("submit", handleSubmit); //submit event를 기다림
 } else {
-  paintGreetings(savedUsername);
+  paintGreeting(savedUsername);
 }
