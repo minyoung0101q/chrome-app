@@ -12,7 +12,7 @@ function paintGreeting(username) {
   greeting.innerText = `Hello ${username}`;
 }
 
-// submit되면 화면에 innerText 활용해 표시가 된다고 가정한다.
+// submit 되면 화면에 innerText 활용해 표시가 된다고 가정한다.
 function handleSubmit(event) {
   event.preventDefault();
   loginForm.classList.add(HIDDEN_CLASSNAME); //코드 추가
