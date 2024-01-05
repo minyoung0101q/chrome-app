@@ -11,4 +11,4 @@ const image = document.createElement("img");
 console.log(image); //<img>
 //appendChild()
 image.src = `img/${randomImage}`;
-document.body.prepend(image);
+document.body.appendChild(image);
