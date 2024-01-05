@@ -1,61 +1,70 @@
 const quotes = [
   {
-    quote: "I never dreamed about success, I worked for it",
-    author: "Estee Lauder",
-  },
-  {
-    quote: "Do not try to be original, just try to be good.",
-    author: "Paul Rand",
-  },
-  {
-    quote: "Do not be afraid to give up the good to go for the great",
-    author: "John D. Rockefeller",
+    quote: "When you have faults, do not fear to abandon them.",
+    author: "Confucius",
   },
   {
     quote:
-      "If you cannot fly then run. If you cannot run, then walk. And if you cannot walk, then crawl, but whatever you do, you have to keep moving forward.",
-    author: "Martin Luther King Jr.",
+      "They must often change who would be constant in happiness or wisdom.",
+    author: "Confucius",
+  },
+  {
+    quote: "Age is no guarantee of maturity.",
+    author: "Lawana Blackwell",
+  },
+  {
+    quote: "Youth isn’t always all it’s touted to be.",
+    author: "Lawana Blackwell",
   },
   {
     quote:
-      "Our greatest weakness lies in giving up. The most certain way to succeed is always to try just one more time.",
-    author: "Thomas Edison",
+      "You will face many defeats in life, but never let yourself be defeated.",
+    author: "Maya Angelou",
   },
   {
     quote:
-      "The fastest way to change yourself is to hang out with people who are already the way you want to be",
-    author: "REid Hoffman",
+      "The greatest glory in living lies not in never falling, but in rising every time we fall.",
+    author: "Nelson Mandela",
   },
   {
-    quote:
-      "Money is like gasoline during a road trip. You do not want to run out of gas on your trip, but you are not doing a tour of gas stations",
-    author: "Tim O Reilly",
+    quote: "Life is either a daring adventure or nothing at all. ",
+    author: "Helen",
   },
   {
-    quote:
-      "Some people dream of success, while other people get up every morning and make it happen",
-    author: "Wayne Huizenga",
+    quote: "The goal of life is living in agreement with nature. ",
+    author: "Zeno",
   },
   {
-    quote:
-      "The only thing worse than starting something and falling.. is not starting something",
-    author: "SEth Godin",
+    quote: "This too shall pass.",
+    author: "Et hoc transibit",
   },
   {
-    quote:
-      "If you really want to do something, you will find a way. If you do not, you will find an excuse.",
-    author: "Jim Rohn",
+    quote: "The die is cast.",
+    author: "Julius caesar",
   },
 ];
+//quotes 배열의 길이
+console.log(quotes.length);
+//quotes 배열의 길이 - 1 =  마지막 인덱스는 9
+console.log(quotes.length - 1);
 
-const quote = document.querySelector("#quote span:first-child");
-const author = document.querySelector("#quote span:last-child");
-//0부터 9까지의 정수 생성
-console.log(quotes.length); //10
+//명언과 작가를 랜덤으로 뽑는다.
+//Math.random을 먼저 하고 그것으르 Math.floor로 감싼다.
+console.log(quotes[0]);
+console.log(quotes[2]);
+console.log(quotes.length);
+console.log(Math.floor(Math.random() * quotes.length));
+//객체를 출력,
 console.log(quotes[Math.floor(Math.random() * quotes.length)]);
-const todaysQuote = quotes[Math.floor(Math.random() * quotes.length)];
-console.log(todaysQuote);
 
-//명언과 작가를 화면에 보이게 하자
-quote.innerText = todaysQuote.quote;
-author.innerText = todaysQuote.author;
+//랜덤으로 준비된 배열에서 명언 한 개를 뽑아줄 것임
+const quote = document.querySelector("#quotes span:first-child");
+const author = document.querySelector("#quotes span:last-child");
+const randomQuoteAuthor = quotes[Math.floor(Math.random() * quotes.length)];
+
+console.log(randomQuoteAuthor.quote);
+console.log(quote);
+console.log(quote[5]); //만약 배열의 길이가 2인데 없는 인덱스를 찾으려고 한다면 undefined가 뜬다.
+console.log(author);
+quote.innerText = randomQuoteAuthor.quote;
+author.innerText = randomQuoteAuthor.author;
