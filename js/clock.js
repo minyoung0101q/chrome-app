@@ -13,8 +13,6 @@ console.log(clock);
 //localStorage에 사용자가 입력한 value 저장하기 키: "username" 값: username
 //html 문서에 hidden class를 form과 input에 추가한 후 로그인 여부 확인 후 hidden class를 js로 remove
 
-const b = "";
-const a = "";
 function greetingsRendering(username) {
   greetings.classList.remove("hidden");
   greetings.innerText = `Hello, ${username}`;
@@ -44,10 +42,15 @@ if (savedUsername === null) {
 //시계, clock
 
 function clockDigital() {
-  //자바스크립트 내장 생성자 함수 Date 사용해서 새로운 Date 객체 반환값을 date에 저장
+  //자바스크립트 내장 생성자 함수 Date를 사용해서 새로운 Date 객체 반환값을 date에 저장
   const date = new Date();
-  const time = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
-  clock.innerText = time;
+  //padStart 함수 활용
+  //number에서 text로 변환
+  //2글자가 되어야 하고 그렇지 않다면 앞쪽에 0을 추가
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+  const seconds = String(date.getSeconds()).padStart(2, "0");
+  clock.innerText = `${hours}:${minutes}:${seconds}`;
 }
 
 clockDigital(); //처음 한 번 실행
