@@ -3,6 +3,14 @@ const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("input"); //document 대신에 toDoForm 활용
 const toDoList = document.getElementById("todo-list");
 console.log(greetings); //greeting.js 파일에서 정의한 greetings를 쓸 수 있음
+
+function deleteToDo() {
+  console.log("kakakak"); //button이 클릭되었다는 것은 알지만, 어떤 li를 제거해야하는지 알지 못한다. 처음 것일까 마지막 것일까?
+  //같은 event를 기다리고 있고, 그들 모두 같은 function을 실행시키고 있다.
+  //5개의 button이 있는데! 모든 button이 같은 event를 기다리고 있고, 모두 같은 function을 실행하고 있다.
+  //어떤 button이 클릭되었는지를 모른다.
+}
+
 //toDo를 그리는 역할
 //handleToDoForm function이 paintToDo를 사용하게 됨
 function paintToDo(newTodo) {
@@ -12,6 +20,7 @@ function paintToDo(newTodo) {
   span.innerText = newTodo;
   const button = document.createElement("button");
   button.innerText = "X";
+  button.addEventListener("click", deleteToDo);
   //두 element를 만들었다, 이제 span은 li 내부에 있어야 한다.
   li.appendChild(span); //이제 li는 span이라는 자식을 갖게 되었다.
   li.appendChild(button);
