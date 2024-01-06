@@ -57,10 +57,6 @@ function handleToDoForm(event) {
 //submit eventListener
 toDoForm.addEventListener("submit", handleToDoForm);
 
-function sayHello(item) {
-  console.log("this is the turn of", item);
-}
-
 // localStorage에서 string을 array로 변환
 // 먼저, savedToDos를 하는데 greetings.js에서 했던 것과 매우 비슷하다.
 // "todos" -> 키가 반복되니까 변수를 만들자
@@ -75,5 +71,5 @@ if (savedToDos !== null) {
   console.log(parsedToDos); //우리는 이것을 사용할 수 있다. => JavaScript에서 중요한 Data Structure이다.
   //대부분의 경우 array 각각의 item을 가지고 무언가를 하고 싶을 것이다.
   //즉, array 안에 있는 각각의 item에 대해 function을 실행시키고 싶은 것이다.
-  parsedToDos.forEach(sayHello);
+  parsedToDos.forEach((element) => console.log("this is the turn of", element));
 }
