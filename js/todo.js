@@ -9,9 +9,13 @@ function paintToDo(newTodo) {
   console.log("I will paint", newTodo);
   const li = document.createElement("li");
   const span = document.createElement("span");
+  span.innerText = newTodo;
+  const button = document.createElement("button");
+  button.innerText = "X";
   //두 element를 만들었다, 이제 span은 li 내부에 있어야 한다.
   li.appendChild(span); //이제 li는 span이라는 자식을 갖게 되었다.
-  span.innerText = newTodo;
+  li.appendChild(button);
+
   console.log(li);
   //이제 이 새로운 li를 toDoList에 추가해야 한다. 4줄의 toDoList!!
   toDoList.appendChild(li);
