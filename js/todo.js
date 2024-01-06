@@ -1,8 +1,10 @@
-//form과 ul을 HTML에서 JavaScript로 가져오기
+//form과 ul을 HTML에서 JavaScript로 기져오기
 const toDoForm = document.getElementById("todo-form");
 const toDoInput = toDoForm.querySelector("input"); //document 대신에 toDoForm 활용
 const toDoList = document.getElementById("todo-list");
 console.log(greetings); //greeting.js 파일에서 정의한 greetings를 쓸 수 있음
+
+const TODOS_KEY = "todos";
 
 //todolist들을 저장할 배열
 const toDos = [];
@@ -10,7 +12,7 @@ const toDos = [];
 //toDos array의 내용을 localStorage에 넣어준다. 이게 다다.
 function saveToDos() {
   //localStorage에 배열을 저장하려고 하면, 배열이 문자열로 변환되어 저장된다.
-  localStorage.setItem("todos", JSON.stringify(toDos));
+  localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
 }
 
 function deleteToDo(event) {
@@ -54,3 +56,24 @@ function handleToDoForm(event) {
 }
 //submit eventListener
 toDoForm.addEventListener("submit", handleToDoForm);
+
+function sayHello(item) {
+  console.log("this is the turn of", item);
+}
+
+// localStorage에서 string을 array로 변환
+// 먼저, savedToDos를 하는데 greetings.js에서 했던 것과 매우 비슷하다.
+// "todos" -> 키가 반복되니까 변수를 만들자
+const savedToDos = localStorage.getItem(TODOS_KEY);
+console.log(savedToDos);
+/* 
+만약 savedToDos가 localStorage에 존재한다면
+if(savedToDos) 이렇게도 가능
+*/
+if (savedToDos !== null) {
+  const parsedToDos = JSON.parse(savedToDos);
+  console.log(parsedToDos); //우리는 이것을 사용할 수 있다. => JavaScript에서 중요한 Data Structure이다.
+  //대부분의 경우 array 각각의 item을 가지고 무언가를 하고 싶을 것이다.
+  //즉, array 안에 있는 각각의 item에 대해 function을 실행시키고 싶은 것이다.
+  parsedToDos.forEach(sayHello);
+}
