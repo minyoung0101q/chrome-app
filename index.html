@@ -7,11 +7,11 @@
     <link href="css/styles.css" rel="stylesheet" />
   </head>
   <body>
-    <!-- Clock -->
-    <h2 id="clock">00:00</h2>
+    <!-- clock -->
+    <h2 id="clock-digital">00:00</h2>
 
-    <!-- Login Form -->
-    <form class="hidden" id="login-form" action="" method="get">
+    <!-- login form -->
+    <form id="login-form" class="hidden">
       <label for="username">username</label>
       <input
         id="username"
@@ -22,15 +22,27 @@
       />
       <input type="submit" value="Log In" />
     </form>
-    <h1 class="hidden" id="greetings"></h1>
+    <h1 id="greetings" class="hidden"></h1>
 
-    <!-- Random - 10가지 명언, 인용문들 -->
-    <div id="quotes">
+    <!-- to do, list -->
+    <form id="todo-form">
+      <label for="todo">to do list</label>
+      <input id="todo" type="text" placeholder="Write a to do list" />
+      <input type="submit" value="complete" />
+    </form>
+    <!-- javascript로 li 추가 예정 -->
+    <ul id="todo-list"></ul>
+
+    <!-- random 명언, 작가 -->
+    <div id="quotesAuthor">
       <!-- 명언 -->
       <span></span>
       <!-- 작가 -->
       <span></span>
     </div>
+
+    <!-- random image -> javascript에서 html을 그린다 -->
+    <!-- <image src="./img/0.jpeg" /> -->
 
     <!-- script import -->
     <script src="js/greetings.js"></script>

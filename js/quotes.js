@@ -1,21 +1,5 @@
+//quotes 배열 생성 배열 안은 객체로 이루어짐
 const quotes = [
-  {
-    quote: "When you have faults, do not fear to abandon them.",
-    author: "Confucius",
-  },
-  {
-    quote:
-      "They must often change who would be constant in happiness or wisdom.",
-    author: "Confucius",
-  },
-  {
-    quote: "Age is no guarantee of maturity.",
-    author: "Lawana Blackwell",
-  },
-  {
-    quote: "Youth isn’t always all it’s touted to be.",
-    author: "Lawana Blackwell",
-  },
   {
     quote:
       "You will face many defeats in life, but never let yourself be defeated.",
@@ -27,44 +11,52 @@ const quotes = [
     author: "Nelson Mandela",
   },
   {
+    quote:
+      "In the end, it's not the years in your life that count. It's the life in your years. ",
+    author: "Abraham Linc",
+  },
+  {
+    quote: "Never let the fear of striking out keep you from playing the game.",
+    author: "Babe Ruth",
+  },
+  {
     quote: "Life is either a daring adventure or nothing at all. ",
-    author: "Helen",
+    author: "Helen Keller",
   },
   {
-    quote: "The goal of life is living in agreement with nature. ",
-    author: "Zeno",
+    quote:
+      "Many of life's failures are people who did not realize how close they were to success when they gave up.",
+    author: "Thomas A. Edison",
   },
   {
-    quote: "This too shall pass.",
-    author: "Et hoc transibit",
+    quote:
+      "You have brains in your head. You have feet in your shoes. You can steer yourself any direction you choose.",
+    author: "Dr. Seuss",
   },
   {
-    quote: "The die is cast.",
-    author: "Julius caesar",
+    quote:
+      "I believe we are here on the planet Earth to live, grow up and do what we can to make this world a better place for all people to enjoy freedom.",
+    author: "Rosa Parks ",
+  },
+  {
+    quote: "Being happy never goes out of style.",
+    author: "Lilly Pulitzer",
+  },
+  {
+    quote: "Life is either a great adventure or nothing.",
+    author: "Helen Keller",
   },
 ];
-//quotes 배열의 길이
-console.log(quotes.length);
-//quotes 배열의 길이 - 1 =  마지막 인덱스는 9
-console.log(quotes.length - 1);
+console.log(quotes.length); //배열의 길이 - 1 = 마지막 인덱스
 
-//명언과 작가를 랜덤으로 뽑는다.
-//Math.random을 먼저 하고 그것으르 Math.floor로 감싼다.
-console.log(quotes[0]);
-console.log(quotes[2]);
-console.log(quotes.length);
-console.log(Math.floor(Math.random() * quotes.length));
-//객체를 출력,
+const quote = document.querySelector("#quotesAuthor span:first-child");
+const author = document.querySelector("#quotesAuthor span:last-child");
+console.log(quote); //<span></span>
+console.log(author); //<span></span>
+
+//random()은 0과 1을 반환 * 배열의 길이만큼 그리고 그걸 floor로 감싸서 무조건 내림해준다.
 console.log(quotes[Math.floor(Math.random() * quotes.length)]);
-
-//랜덤으로 준비된 배열에서 명언 한 개를 뽑아줄 것임
-const quote = document.querySelector("#quotes span:first-child");
-const author = document.querySelector("#quotes span:last-child");
-const randomQuoteAuthor = quotes[Math.floor(Math.random() * quotes.length)];
-
-console.log(randomQuoteAuthor.quote);
-console.log(quote);
-console.log(quote[5]); //만약 배열의 길이가 2인데 없는 인덱스를 찾으려고 한다면 undefined가 뜬다.
-console.log(author);
-quote.innerText = randomQuoteAuthor.quote;
-author.innerText = randomQuoteAuthor.author;
+const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+//당연히 randomQuote 초기화해준 다음, 밑의 코드를 작성해야 한다.
+quote.innerText = randomQuote.quote;
+author.innerText = randomQuote.author;
