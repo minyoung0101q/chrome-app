@@ -6,8 +6,9 @@ console.log(greetings); //greeting.js 파일에서 정의한 greetings를 쓸 �
 
 const TODOS_KEY = "todos";
 
-//todolist들을 저장할 배열
-const toDos = [];
+//todolist들을 저장할 배열 처음엔 const
+//let으로 바꿈 application이 시작될 때 toDos array를 빈 값으로 시작하는 대신에 const를 let으로 바꿔서 업데이트가 가능하도록 만든다.
+let toDos = [];
 
 //toDos array의 내용을 localStorage에 넣어준다. 이게 다다.
 function saveToDos() {
@@ -71,5 +72,7 @@ if (savedToDos !== null) {
   console.log(parsedToDos); //우리는 이것을 사용할 수 있다. => JavaScript에서 중요한 Data Structure이다.
   //대부분의 경우 array 각각의 item을 가지고 무언가를 하고 싶을 것이다.
   //즉, array 안에 있는 각각의 item에 대해 function을 실행시키고 싶은 것이다.
-  parsedToDos.forEach((element) => console.log("this is the turn of", element));
+  toDos = parsedToDos; //toDos에 parsedToDos를 넣어서 전에 있단 toDo들을 복원한다.
+  parsedToDos.forEach(paintToDo); //이렇게 하면 array에 있는 각각의 item들을 화면에 출력한다.
+  //위 코드가 없으면 새로고침했을 때 화면에 localStoragae에 저장되어 있는 item이 반영되지 않는다.
 }
