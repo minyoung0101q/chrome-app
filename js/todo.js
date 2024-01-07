@@ -1,78 +1,63 @@
-//form과 ul을 HTML에서 JavaScript로 기져오기
-const toDoForm = document.getElementById("todo-form");
-const toDoInput = toDoForm.querySelector("input"); //document 대신에 toDoForm 활용
-const toDoList = document.getElementById("todo-list");
-console.log(greetings); //greeting.js 파일에서 정의한 greetings를 쓸 수 있음
+const toDoForm = document.querySelector("#todo-form");
+const toDoInput = document.querySelector("#todo-form input");
+const toDoUl = document.querySelector("#todo-list");
 
-const TODOS_KEY = "todos";
-
-//todolist들을 저장할 배열 처음엔 const
-//let으로 바꿈 application이 시작될 때 toDos array를 빈 값으로 시작하는 대신에 const를 let으로 바꿔서 업데이트가 가능하도록 만든다.
 let toDos = [];
 
-//toDos array의 내용을 localStorage에 넣어준다. 이게 다다.
 function saveToDos() {
-  //localStorage에 배열을 저장하려고 하면, 배열이 문자열로 변환되어 저장된다.
-  localStorage.setItem(TODOS_KEY, JSON.stringify(toDos));
+  const savedToDos = JSON.stringify(toDos);
+  localStorage.setItem("todos", savedToDos);
 }
 
 function deleteToDo(event) {
-  console.dir(event.target.parentElement.innerText); //innerText 정보를 얻을 수 있음
   const li = event.target.parentElement;
-  li.remove(); //이게 다다, 이렇게하면 삭제 된다.
+  console.log(li.id); //삭제하기 전에 li의 id를 얻는다.
+  li.remove();
 }
 
-//toDo를 그리는 역할
-//handleToDoForm function이 paintToDo를 사용하게 됨
-function paintToDo(newTodo) {
-  console.log("I will paint", newTodo);
+function paintToDo(toDoInputValue) {
   const li = document.createElement("li");
+  li.id = toDoInputValue.id;
   const span = document.createElement("span");
-  span.innerText = newTodo;
   const button = document.createElement("button");
-  button.innerText = "X";
   button.addEventListener("click", deleteToDo);
-  //두 element를 만들었다, 이제 span은 li 내부에 있어야 한다.
-  li.appendChild(span); //이제 li는 span이라는 자식을 갖게 되었다.
+  span.innerText = toDoInputValue.text;
+  button.innerText = "X";
+  li.appendChild(span);
   li.appendChild(button);
-
-  console.log(li);
-  //이제 이 새로운 li를 toDoList에 추가해야 한다. 4줄의 toDoList!!
-  toDoList.appendChild(li);
+  toDoUl.appendChild(li);
 }
 
-//greetings의 form에서 했던 것과 비슷한 로직
-
-function handleToDoForm(event) {
+function handleFormSubmit(event) {
   event.preventDefault();
-  //todolist의 첫번째 단계
-  const newTodo = toDoInput.value; //input의 value를 비우기 전에 나타내는 string
+  const toDoInputValue = toDoInput.value;
   toDoInput.value = "";
-  toDos.push(newTodo); //콘솔에 toDos를 찍어보면 내가 추가한 todolist들이 모두 찍힌다.
-  //이제 이 toDos안의 item들을 localStorage에 넣으면 된다.
-  //하지만, 문제는 localStorage에 array를 저장할 수가 없다는 것이다.
-  //localStorage는 오로지 text만 저장할 수 있다.
-  paintToDo(newTodo);
+  const newTodoObj = {
+    text: toDoInputValue,
+    id: Date.now(),
+  };
+  toDos.push(newTodoObj);
+  paintToDo(newTodoObj);
   saveToDos();
 }
-//submit eventListener
-toDoForm.addEventListener("submit", handleToDoForm);
 
-// localStorage에서 string을 array로 변환
-// 먼저, savedToDos를 하는데 greetings.js에서 했던 것과 매우 비슷하다.
-// "todos" -> 키가 반복되니까 변수를 만들자
-const savedToDos = localStorage.getItem(TODOS_KEY);
-console.log(savedToDos);
-/* 
-만약 savedToDos가 localStorage에 존재한다면
-if(savedToDos) 이렇게도 가능
-*/
-if (savedToDos !== null) {
-  const parsedToDos = JSON.parse(savedToDos);
-  console.log(parsedToDos); //우리는 이것을 사용할 수 있다. => JavaScript에서 중요한 Data Structure이다.
-  //대부분의 경우 array 각각의 item을 가지고 무언가를 하고 싶을 것이다.
-  //즉, array 안에 있는 각각의 item에 대해 function을 실행시키고 싶은 것이다.
-  toDos = parsedToDos; //toDos에 parsedToDos를 넣어서 전에 있단 toDo들을 복원한다.
-  parsedToDos.forEach(paintToDo); //이렇게 하면 array에 있는 각각의 item들을 화면에 출력한다.
-  //위 코드가 없으면 새로고침했을 때 화면에 localStoragae에 저장되어 있는 item이 반영되지 않는다.
+toDoForm.addEventListener("submit", handleFormSubmit);
+
+const getItem = localStorage.getItem("todos");
+
+if (getItem !== null) {
+  const parsedItem = JSON.parse(getItem);
+  toDos = parsedItem;
+  parsedItem.forEach((element) => {
+    paintToDo(element);
+  });
 }
+
+/* todolist 추가 삭제 구현
+1. add todo
+2. delete todo
+3. localStorage setItem 저장, 직렬화
+4. loacalStorage getItem 파싱 -> 저장된 값을 화면에 그려주기
+5. id를 추가해서 localStorage에 저장하고 그것을 화면에 뿌려준다 
+6. 이제 id를 추가했으니 todo를 지울 때마다 localStorage에 업데이트 해야 한다.
+*/
