@@ -1,12 +1,14 @@
-function onGeoOk(position) {
-  //JavaScript가 전달해줄 정보에 대한 공간만 채워주면 된다.
+//현재 위치 가져오기
+
+function GeoOk(position) {
   console.log(position);
-  const lat = position.coords;
-  const lng = position.coords.longitude;
-  console.log("You live in", lat, lng);
-}
-function onGeoError() {
-  alert("Can't find you. No weather for you.");
+  const latitude = position.coords.latitude;
+  const longitude = position.coords.longitude;
+  console.log("You live in", latitude, longitude);
 }
 
-navigator.geolocation.getCurrentPosition(onGeoOk, onGeoError);
+function GeoError(err) {
+  console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+
+navigator.geolocation.getCurrentPosition(GeoOk, GeoError);
