@@ -5,48 +5,40 @@ const toDoUl = document.querySelector("#todo-list");
 let toDos = [];
 
 function saveToDos() {
-  const savedToDos = JSON.stringify(toDos);
-  localStorage.setItem("todos", savedToDos);
+  const jsonStringfyItem = JSON.stringify(toDos);
+  localStorage.setItem("todos", jsonStringfyItem);
 }
 
-function deleteToDo(event) {
+function handleDeleteToDo(event) {
   const li = event.target.parentElement;
   li.remove();
-  console.log(li.id); //삭제하기 전에 li의 id를 얻는다.
-  //toDo는 toDos DB에 있는 요소 중 하나이다.
-  //그래서 이 함수는 DB에 있는 모든 것과 함께 실행된다.
-  //이 문장의 의미 : 우리카 클릭한 li.id와 다른 toDo는 남겨두고 싶다.
-  //li.id는 string 타입이고, toDo.id는 number 타입이다. => 그래서 이 둘이 다른 게 되니까 아무것도 지워지지 않는다.
-  //parseInt는 문자열을 숫자로 바꾼다.
-  //filter는 새로운 배열을 반환한다. 조건을 true하는 것들만 모아서
-  //클릭한 li의 id와 db의 id가 같지 않은 것들을 모아 새로운 배열을 반환한다.
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
-  saveToDos(); //그리고 그것을 localStorage에 저장해서 반영한다.
+  saveToDos();
 }
 
-function paintToDo(toDoInputValue) {
+function paintToDo(newToDoObject) {
   const li = document.createElement("li");
-  li.id = toDoInputValue.id;
+  li.id = newToDoObject.id;
   const span = document.createElement("span");
   const button = document.createElement("button");
-  button.addEventListener("click", deleteToDo);
-  span.innerText = toDoInputValue.text;
-  button.innerText = "X";
+  button.addEventListener("click", handleDeleteToDo);
   li.appendChild(span);
   li.appendChild(button);
   toDoUl.appendChild(li);
+  span.innerText = newToDoObject.text;
+  button.innerText = "X";
 }
 
 function handleFormSubmit(event) {
   event.preventDefault();
-  const toDoInputValue = toDoInput.value;
-  toDoInput.value = "";
-  const newTodoObj = {
-    text: toDoInputValue,
+  const newToDo = toDoInput.value;
+  const newToDoObject = {
+    text: newToDo,
     id: Date.now(),
   };
-  toDos.push(newTodoObj);
-  paintToDo(newTodoObj);
+  toDoInput.value = "";
+  toDos.push(newToDoObject);
+  paintToDo(newToDoObject);
   saveToDos();
 }
 
@@ -54,19 +46,20 @@ toDoForm.addEventListener("submit", handleFormSubmit);
 
 const getItem = localStorage.getItem("todos");
 
+//list 목록이 localStorage에 있다면
 if (getItem !== null) {
   const parsedItem = JSON.parse(getItem);
-  toDos = parsedItem;
-  parsedItem.forEach((element) => {
+  console.log(parsedItem);
+  toDos = parsedItem; //localStorage에서 가져와서 toDos 배열에 저장
+  toDos.forEach((element) => {
     paintToDo(element);
   });
 }
 
-/* todolist 추가 삭제 구현
-1. add todo
-2. delete todo
-3. localStorage setItem 저장, 직렬화
-4. loacalStorage getItem 파싱 -> 저장된 값을 화면에 그려주기
-5. id를 추가해서 localStorage에 저장하고 그것을 화면에 뿌려준다 
-6. 이제 id를 추가했으니 todo를 지울 때마다 localStorage에 업데이트 해야 한다.
+/* 
+1. todo add id와 text
+2. todo delete
+3. localStorage에 직렬화로 저장 setItem
+4. localStorage에 파싱해서 가져오기 getItem -> 이전 것들을 toDos = parsedItem 하기
+5. 삭제 버튼을 눌러서 localStorage에 적용
 */
