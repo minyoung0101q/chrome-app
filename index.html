@@ -1,65 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vanillajs chrome app es6 es5</title>
-    <link href="css/styles.css" rel="stylesheet" />
-  </head>
-  <body>
-    <!-- clock -->
-    <h2 id="clock-digital">00:00</h2>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="./css/styles.css" />
+        <title>to do list</title>
+    </head>
+    <body>
+        <!-- 1. open weather api-->
+        <div id="weather">
+            <span></span>
+            <span></span>
+        </div>
 
-    <!-- login form -->
-    <form id="login-form" class="hidden">
-      <label for="username">username</label>
-      <input
-        id="username"
-        type="text"
-        placeholder="username을 입력하세요."
-        maxlength="15"
-        required
-      />
-      <input type="submit" value="Log In" />
-    </form>
-    <h1 id="greetings" class="hidden"></h1>
+        <!-- 2. 실시간 clock -->
+        <h2 id="clock">00:00:00</h2>
 
-    <!-- to do -->
-    <form id="todo-form">
-      <input type="text" placeholder="write a to do" required />
-      <input type="submit" value="Do" />
-    </form>
+        <!-- 3. Login -->
+        <form id="login-form" class="hidden">
+            <label for="nickname">name : </label>
+            <input
+                id="nickname"
+                type="text"
+                placeholder="이름을 입력해주세요."
+            />
+            <input type="submit" value="Log In" />
+        </form>
 
-    <!-- to do list -->
-    <ul id="todo-list">
-      <!-- <li>
-        <span></span>
-        <button></button>
-      </li> -->
-    </ul>
+        <!-- 로그인한 사용자 이름 화면에 그리기 -->
+        <h2 id="greeting" class="hidden"></h2>
 
-    <!-- random 명언, 작가 -->
-    <div id="quotesAuthor">
-      <!-- 명언 -->
-      <span></span>
-      <!-- 작가 -->
-      <span></span>
-    </div>
-    <!-- weather -->
-    <div id="weather">
-      <span></span>
-      <span></span>
-    </div>
+        <!-- 4. To do list -->
+        <form id="todo-list">
+            <label for="todo">to do : </label>
+            <input
+                id="todo"
+                type="text"
+                required
+                placeholder="할 일을 입력해주세요."
+            />
+            <input type="submit" value="enter" />
+        </form>
 
-    <!-- random image -> javascript에서 html을 그린다. -->
-    <!-- <image src="./img/0.jpeg" /> -->
+        <ul id="todo-paint">
+            <!-- to do list를 javascript로 그리기 -->
+            <!--
+                 <li>
+                    <span></span>
+                    <button>X</button>
+                </li>
+                <li>
+                    <span></span>
+                    <button>X</button>
+                </li>
+             -->
+        </ul>
 
-    <!-- script import -->
-    <script src="js/greetings.js"></script>
-    <script src="js/clock.js"></script>
-    <script src="js/quotes.js"></script>
-    <script src="js/background.js"></script>
-    <script src="js/todo.js"></script>
-    <script src="js/weather.js"></script>
-  </body>
+        <!-- 5. 랜덤 인용구와 작가 -->
+        <div id="quotes">
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- 6. 랜덤 배경화면 : html 생성하기 -->
+        <!-- <img src="./img/0.jpeg"/> -->
+        <script src="./js/weather.js"></script>
+        <script src="./js/clock.js"></script>
+        <script src="./js/greetings.js"></script>
+        <script src="./js/todo.js"></script>
+        <script src="./js/quotes.js"></script>
+        <script src="./js/background.js"></script>
+    </body>
 </html>

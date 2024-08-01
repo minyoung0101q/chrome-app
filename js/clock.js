@@ -1,14 +1,13 @@
-const clock = document.querySelector("#clock-digital");
-console.log(clock); //<h2 id="clock-digital"></h2>
+const clock = document.querySelector("h2#clock");
 
-function clockDigital() {
-  const date = new Date();
-  const dateHours = String(date.getHours());
-  const dateMinutes = String(date.getMinutes());
-  const dateSeconds = String(date.getSeconds());
-  const datePadStartSeconds = dateSeconds.padStart(2, "0");
-  const paintClock = `${dateHours}:${dateMinutes}:${datePadStartSeconds}`;
-  clock.innerText = paintClock;
+function getClock() {
+    const date = new Date();
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    clock.innerText = `${hours}:${minutes}:${seconds}`;
 }
-clockDigital();
-setInterval(clockDigital, 1000);
+
+getClock();
+setInterval(getClock, 1000);

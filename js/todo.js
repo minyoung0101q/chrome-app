@@ -1,65 +1,61 @@
-const toDoForm = document.querySelector("#todo-form");
-const toDoInput = document.querySelector("#todo-form input");
-const toDoUl = document.querySelector("#todo-list");
+const todoForm = document.querySelector("#todo-list");
+const todoInput = document.querySelector("#todo-list input");
+const todoList = document.querySelector("#todo-paint");
 
-let toDos = [];
+let toDos = []; // localStorage에 저장할 배열
 
-function saveToDos() {
-  const jsonStringfyItem = JSON.stringify(toDos);
-  localStorage.setItem("todos", jsonStringfyItem);
+// function ondeleteTodo(event) {
+//     const li = event.target.parentElement; // 삭제하고자 하는 span의 부모 li
+//     li.remove(); // 화면에서 삭제
+//     toDos = toDos.filter(toDo => toDo.id !== parseInt(li.id)); // toDos 배열에서 삭제
+//     saveTodos(); // localStorage에 저장
+// }
+
+function paintTodos(newTodoObj) { // ul>li>span
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    const button = document.createElement("button");
+
+    li.appendChild(span);
+    li.appendChild(button);
+    todoList.appendChild(li);
+
+    li.id = newTodoObj.id; // 화면에 그리는 것에 li의 id를 줌
+    button.innerText = "❌";
+    span.innerText = newTodoObj.text;
+
+    // 삭제
+    button.addEventListener("click", (event) => {
+        const li = event.target.parentElement; // 삭제하고자 하는 span의 부모 li
+        li.remove(); // 화면에서 삭제
+        toDos = toDos.filter(toDo => toDo.id !== parseInt(li.id)); // toDos 배열에서 삭제
+        saveTodos(); // localStorage에 저장
+    });
 }
 
-function handleDeleteToDo(event) {
-  const li = event.target.parentElement;
-  li.remove();
-  toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
-  saveToDos();
+function saveTodos() {
+    localStorage.setItem("todos", JSON.stringify(toDos)); // 새로운 todo 입력된 객체로 이루어진 toDos 배열을 저장
 }
 
-function paintToDo(newToDoObject) {
-  const li = document.createElement("li");
-  li.id = newToDoObject.id;
-  const span = document.createElement("span");
-  const button = document.createElement("button");
-  button.addEventListener("click", handleDeleteToDo);
-  li.appendChild(span);
-  li.appendChild(button);
-  toDoUl.appendChild(li);
-  span.innerText = newToDoObject.text;
-  button.innerText = "X";
+function todoFormSubmit(event) {
+    event.preventDefault(); // 새로고침 방지
+    const newTodo = todoInput.value;
+    todoInput.value = "";
+    const newTodoObj = {
+        id: Date.now(),
+        text: newTodo
+    }
+    toDos.push(newTodoObj); // newTodoObj 객체를 toDos 배열에 넣기
+    saveTodos(); // 그것을 localStorage에 직렬화해서 저장
+    paintTodos(newTodoObj); // 화면에 저장한 newTodoObj를 그리기
 }
 
-function handleFormSubmit(event) {
-  event.preventDefault();
-  const newToDo = toDoInput.value;
-  const newToDoObject = {
-    text: newToDo,
-    id: Date.now(),
-  };
-  toDoInput.value = "";
-  toDos.push(newToDoObject);
-  paintToDo(newToDoObject);
-  saveToDos();
+const savedTodos = localStorage.getItem("todos");
+
+todoForm.addEventListener("submit", todoFormSubmit); // to do list 입력 과정 진행
+
+if (savedTodos) { // null이 아니라면
+    const parsedTodos = JSON.parse(savedTodos); // 파싱, 역직렬화
+    toDos = parsedTodos;
+    parsedTodos.forEach(paintTodos); // 저장된 todo들을 화면에 그려주기
 }
-
-toDoForm.addEventListener("submit", handleFormSubmit);
-
-const getItem = localStorage.getItem("todos");
-
-//list 목록이 localStorage에 있다면
-if (getItem !== null) {
-  const parsedItem = JSON.parse(getItem);
-  console.log(parsedItem);
-  toDos = parsedItem; //localStorage에서 가져와서 toDos 배열에 저장
-  toDos.forEach((element) => {
-    paintToDo(element);
-  });
-}
-
-/* 
-1. todo add id와 text
-2. todo delete
-3. localStorage에 직렬화로 저장 setItem
-4. localStorage에 파싱해서 가져오기 getItem -> 이전 것들을 toDos = parsedItem 하기
-5. 삭제 버튼을 눌러서 localStorage에 적용
-*/
